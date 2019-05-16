@@ -11,12 +11,49 @@ docker ps
 mv /curl /usr/bin
 docker ps
 
+
 === SCALING
 
 docker swarm init
+docker service create --name docker-flask -p 5000:5000 docker-flask
+docker ps
+docker service ls
+http localhost 5000
+docker service scale docker-flask=5
+docker ps
+docker service ls
+
+=== LOAD BALANCING
+
+repeat 20 http localhost:5000/notfound
+docker ps
+docker logs <different ids>
 
 === HEALTH CHECKS / DISASTER RECOVERY
 
-===
+docker exec -it <some id> sh
+rm /usr/bin/curl
+docker ps (for a while until you see container go unhealthy get booted out and rebooted anew)
+docker service rm docker-flask
+docker service ls
+docker ps
+
+=== ROLLING UPDATES
+
+docker service create \
+  --replicas 3 \
+  --name redis \
+  --update-delay 10s \
+  redis:3.0.6
+
+docker service inspect --pretty redis
+
+docker ps
+
+docker service update --image redis:3.0.7 redis
+
+docker ps
+
+=========
 
 docker swarm leave -f
