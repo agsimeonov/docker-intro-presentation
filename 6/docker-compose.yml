@@ -1,0 +1,56 @@
+version: "3.2"
+
+services:
+  postgres1:
+    image: postgres
+    container_name: postgres1
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+    networks:
+      test1:
+        aliases:
+          - postgres
+
+  postgres-boot1:
+    image: postgres-boot
+    container_name: postgres-boot1
+    ports:
+      - 8080:8080
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    networks:
+      test1:
+        aliases:
+          - postgres-boot
+
+  postgres2:
+    image: postgres
+    container_name: postgres2
+    volumes:
+      - pgdata2:/var/lib/postgresql/data
+    networks:
+      test2:
+        aliases:
+          - postgres
+
+  postgres-boot2:
+    image: postgres-boot
+    container_name: postgres-boot2
+    ports:
+      - 8081:8080
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    networks:
+      test2:
+        aliases:
+          - postgres-boot
+
+volumes:
+  pgdata1:
+  pgdata2:
+
+networks:
+  test1:
+  test2:
