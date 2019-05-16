@@ -1,0 +1,10 @@
+docker run -p 5432:5432 --name postgres --rm postgres
+psql -h localhost postgres postgres
+CREATE TABLE stuff(id SERIAL PRIMARY KEY, message text);
+INSERT INTO stuff(message) VALUES('HELLO THERE');
+SELECT * FROM stuff;
+docker stop postgres
+docker run -p 5432:5432 --name postgres --rm postgres
+psql -h localhost postgres postgres
+SELECT * FROM stuff;
+docker stop postgres

@@ -1,0 +1,4 @@
+docker save ubuntu:18.04 stuff -o images.tar
+docker save ubuntu:18.04 -o ubuntu.tar
+docker save stuff -o stuff.tar
+ls -al --block-size=M  .
