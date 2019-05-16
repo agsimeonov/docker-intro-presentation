@@ -1,0 +1,7 @@
+docker build -t stuff .
+docker run --name stuff stuff
+docker rm -f stuff
+docker run -e MESSAGE=custom --name stuff stuff
+docker rm -f stuff
+docker run -e MESSAGE=custom --name stuff stuff goodbye
+docker rm -f stuff
